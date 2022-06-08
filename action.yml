@@ -44,7 +44,7 @@ runs:
       ssh-key: ${{ inputs.ssh-key }}
       repository: ${{ steps.checkout.outputs.repo }}
       #path: ${{ steps.checkout.outputs.action_path }}
-      path: hello-world-private-repo
+      path: hello-world-private-action
       ref: ${{ steps.checkout.outputs.ref }}
   - name: Execute the private action in ${{ env.PRIVATE_ACTION_PATH }}
     uses: ./hello-world-private-action
