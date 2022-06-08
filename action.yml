@@ -36,6 +36,7 @@ runs:
       echo '::set-output name=ref::'$PRIVATE_ACTION_REF
       echo '::set-output name=repo::'$PRIVATE_ACTION_ORG_REPO
       echo '::set-output name=action_path::'$PRIVATE_ACTION_REPO
+      echo "PRIVATE_ACTION_PATH=$PRIVATE_ACTION_REPO" >> $GITHUB_ENV
   - name: Clone and checkout private action
     uses: actions/checkout@v3
     with:
@@ -44,7 +45,7 @@ runs:
       path: ${{ steps.checkout.outputs.action_path }}
       ref: ${{ steps.checkout.outputs.ref }}
   - name: Execute the private action
-    uses: hello-world-private-action
-    #uses: './${{ steps.checkout.outputs.action_path }}'
+    #uses: ./hello-world-private-action
+    uses: ./${{ env.PRIVATE_ACTION_PATH }}
     #with:
 
