@@ -4,7 +4,7 @@ branding:
   icon: download
   color: blue
 inputs:
-  uses: 
+  u: 
     description: The private repository org/repo@ref
     required: true
   repository:
