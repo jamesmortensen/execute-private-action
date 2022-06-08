@@ -44,6 +44,7 @@ runs:
       path: ${{ steps.checkout.outputs.action_path }}
       ref: ${{ steps.checkout.outputs.ref }}
   - name: Execute the private action
-    uses: ./${{ steps.checkout.outputs.action_path }}
+    uses: ./hello-world-private-action
+    #uses: './${{ steps.checkout.outputs.action_path }}'
     #with:
 
