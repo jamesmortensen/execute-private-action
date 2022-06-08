@@ -13,7 +13,12 @@ inputs:
   ref: 
     description: Branch, tag, or commit to checkout if not default branch
     required: false
-    #default: 
+  ssh-key:
+    description: A GitHub Deploy key, an SSH private key, to access to clone the private repository
+    required: false
+  token:
+    description: A GitHub App Installation token, or a personal access token (not recommended)
+    required: false
   
 runs:
   using: composite
@@ -31,14 +36,14 @@ runs:
       echo '::set-output name=ref::'$PRIVATE_ACTION_REF
       echo '::set-output name=repo::'$PRIVATE_ACTION_ORG_REPO
       echo '::set-output name=action_path::'$PRIVATE_ACTION_REPO
-  #- name: Clone and checkout private action
-  #  uses: actions/checkout@v3
-  #  with:
-  #    ssh-key: ${{ inputs.ssh-key }}
-  #    repository: ${{ steps.checkout.outputs.repo }}
-  #    path: ${{ steps.checkout.outputs.action_path }}
-  #    ref: ${{ steps.checkout.outputs.ref }}
-  #- name: Execute the private action
-  #  uses: ./${{ steps.checkout.outputs.action_path }}
+  - name: Clone and checkout private action
+    uses: actions/checkout@v3
+    with:
+      ssh-key: ${{ inputs.ssh-key }}
+      repository: ${{ steps.checkout.outputs.repo }}
+      path: ${{ steps.checkout.outputs.action_path }}
+      ref: ${{ steps.checkout.outputs.ref }}
+  - name: Execute the private action
+    uses: ./${{ steps.checkout.outputs.action_path }}
     #with:
 
