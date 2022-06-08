@@ -6,6 +6,7 @@ branding:
 inputs:
   uses: 
     description: The private repository org/repo@ref
+    required: true
   repository:
     description: org/repo
     required: true
@@ -37,7 +38,7 @@ runs:
       repository: ${{ steps.checkout.outputs.repo }}
       path: ${{ steps.checkout.outputs.action_path }}
       ref: ${{ steps.checkout.outputs.ref }}
-  - name: Execute the private action
-    uses: ./${{ steps.checkout.outputs.action_path }}
+  #- name: Execute the private action
+  #  uses: ./${{ steps.checkout.outputs.action_path }}
     #with:
 
