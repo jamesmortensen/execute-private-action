@@ -32,7 +32,8 @@ runs:
       echo "GITHUB_ACTION_PATH="$GITHUB_ACTION_PATH
       export PRIVATE_ACTION_REF=`echo $PRIVATE_ACTION_REPO_AND_REF | sed 's/@/ @ /' | awk '{print $3}'`
       export PRIVATE_ACTION_ORG_REPO=`echo $PRIVATE_ACTION_REPO_AND_REF | sed 's/@/ @ /' | awk '{print $1}'`
-      export PRIVATE_ACTION_REPO=`echo $PRIVATE_ACTION_ORG_REPO | sed 's/\// \/ /' | awk '{print $3}'`
+      #export PRIVATE_ACTION_REPO=`echo $PRIVATE_ACTION_ORG_REPO | sed 's/\// \/ /' | awk '{print $3}'`
+      export PRIVATE_ACTION_REPO=./hello-world-private-action
       echo '::set-output name=ref::'$PRIVATE_ACTION_REF
       echo '::set-output name=repo::'$PRIVATE_ACTION_ORG_REPO
       echo '::set-output name=action_path::'$PRIVATE_ACTION_REPO
@@ -42,7 +43,8 @@ runs:
     with:
       ssh-key: ${{ inputs.ssh-key }}
       repository: ${{ steps.checkout.outputs.repo }}
-      path: ${{ steps.checkout.outputs.action_path }}
+      #path: ${{ steps.checkout.outputs.action_path }}
+      path: ./hello-world-private-repo
       ref: ${{ steps.checkout.outputs.ref }}
   - name: Execute the private action in ${{ env.PRIVATE_ACTION_PATH }}
     uses: ./hello-world-private-action
