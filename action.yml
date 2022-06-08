@@ -1,0 +1,43 @@
+name: Execute private action 
+description: Execute a private composite action 
+branding:
+  icon: download
+  color: blue
+inputs:
+  uses: 
+    description: The private repository org/repo@ref
+  repository:
+    description: org/repo
+    required: true
+  ref: 
+    description: Branch, tag, or commit to checkout if not default branch
+    required: false
+    default: 
+  
+runs:
+  using: composite
+  steps: 
+  - name: Get the ref
+    shell: bash
+    id: checkout
+    env: 
+      PRIVATE_ACTION_REPO_AND_REF: ${{ inputs.repository }}
+    run: |
+      echo "GITHUB_ACTION_PATH="$GITHUB_ACTION_PATH
+      export PRIVATE_ACTION_REF=`echo $PRIVATE_ACTION_REPO_AND_REF | sed 's/@/ @ /' | awk '{print $3}'`
+      export PRIVATE_ACTION_ORG_REPO=`echo $PRIVATE_ACTION_REPO_AND_REF | sed 's/@/ @ /' | awk '{print $1}'`
+      export PRIVATE_ACTION_REPO=`echo $PRIVATE_ACTION_ORG_REPO | sed 's/\// \/ /' | awk '{print $3}'`
+      echo '::set-output name=ref::'$PRIVATE_ACTION_REF
+      echo '::set-output name=repo::'$PRIVATE_ACTION_ORG_REPO
+      echo '::set-output name=action_path::'$PRIVATE_ACTION_REPO
+  - name: Clone and checkout private action
+    uses: actions/checkout@v3
+    with:
+      ssh-key: ${{ inputs.ssh-key }}
+      repository: ${{ steps.checkout.outputs.repo }}
+      path: ${{ steps.checkout.outputs.action_path }}
+      ref: ${{ steps.checkout.outputs.ref }}
+  - name: Execute the private action
+    uses: ./${{ steps.checkout.outputs.action_path }}
+    #with:
+
