@@ -4,16 +4,16 @@ branding:
   icon: download
   color: blue
 inputs:
-  u: 
-    description: The private repository org/repo@ref
-    required: true
+  #u: 
+  #  description: The private repository org/repo@ref
+  #  required: true
   repository:
     description: org/repo
     required: true
   ref: 
     description: Branch, tag, or commit to checkout if not default branch
     required: false
-    default: 
+    #default: 
   
 runs:
   using: composite
