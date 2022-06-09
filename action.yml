@@ -44,7 +44,7 @@ runs:
       ssh-key: ${{ inputs.ssh-key }}
       repository: ${{ steps.checkout.outputs.repo }}
       #path: ${{ steps.checkout.outputs.action_path }}
-      #path: .github/actions/private-action
+      path: .github/actions/private-action
       ref: ${{ steps.checkout.outputs.ref }}
   - name: Execute the private action in ${{ env.PRIVATE_ACTION_PATH }}
     uses: ./.github/actions/private-action
