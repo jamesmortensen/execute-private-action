@@ -47,7 +47,6 @@ runs:
       #path: .github/actions/private-action
       ref: ${{ steps.checkout.outputs.ref }}
   - name: Execute the private action in ${{ env.PRIVATE_ACTION_PATH }}
-    working-directory: ./.github/actions/private-action
     uses: ./.github/actions/private-action
    # uses: ${{ env.PRIVATE_ACTION_PATH }}
     #with:
