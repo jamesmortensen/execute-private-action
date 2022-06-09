@@ -50,4 +50,5 @@ runs:
     uses: ./.github/actions/private-action
    # uses: ${{ env.PRIVATE_ACTION_PATH }}
     #with:
-
+  using: node16
+  main: main.js 
